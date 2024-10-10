@@ -1,9 +1,7 @@
-FROM python:3.9-slim
+FROM alpine:3.15.9
+RUN apk update && apk add --no-cache python3 py3-pip git
 WORKDIR /app
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requeriments.txt
-COPY . .
+RUN pip install --no-cache-dir -r requirements.txt
 ENV REDIS_HOST=redis
 EXPOSE 5000
-CMD ["python", "app.py"]
-
+CMD ["flask", "run", "--host=0.0.0.0"]
